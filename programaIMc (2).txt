@@ -1,83 +1,107 @@
-print('\033[33m----- Programa para calculo de IMC -----\033[m\n')
-QuerCalcular = True
-while QuerCalcular:
-    DigitouDireito = False
-    while not DigitouDireito:
+#Função que retorna um valor (natural ou real, escolha pelo parâmetro) maior que 0
+def pegarValor(solicitacao, erro, adeus, numNatural = True):
+    digitouDireito = False
+    while not digitouDireito:
         try:
-            peso = float(input('Digite seu peso:'))
-            altura = float(input('Digite sua altura:'))
-            IMC = (peso / (altura * altura))
-            print(f'Pesando {peso}kg e medindo {altura}m o seu IMC é de {IMC:.2f}kg/m2')
-            if IMC < 16:
-                print(
-                    f'Com o IMC de {IMC:.2f}kg/m2 você está muito abaixo do peso e sua classificação é Magreza Grau III.\n')
-            elif IMC < 16.9:
-                print(
-                    f'Com o IMC de {IMC:.2f}kg/m2 você está muito abaixo do peso e sua classificação é Magreza Grau II.\n')
-            elif IMC <= 18.4:
-                print(f'Com o IMC de {IMC:.2f}kg/m2 você está abaixo do peso e sua classificação é Magreza Grau I.\n')
-            elif IMC <= 24.9:
-                print(f'Com o IMC de {IMC:.2f}kg/m2 você está no peso ideal.\n')
-            elif IMC <= 29.9:
-                print(
-                    f'Com o IMC de {IMC:.2f}kg/m2 você está um pouco acima do peso e sua classificação é Pré-obesidade.\n')
-            elif IMC <= 34.9:
-                print(f'Com o IMC de {IMC:.2f}kg/m2 você está acima do peso e sua classificação é Obesidade Grau I.\n')
-            elif IMC <= 39.9:
-                print(f'Com o IMC de {IMC:.2f}kg/m2 você está acima do peso e sua classificação é Obesidade Grau II.\n')
+            digitacao = input(solicitacao + " (QUIT para sair): ").upper()
+            if digitacao == "QUIT":
+                print(adeus)
+                exit()
+            if numNatural == True:
+                num = int(digitacao)
             else:
-                print(
-                    f'Com o IMC de {IMC:.2f}kg/m2 você está muito acima do peso e sua classificação é Obesidade Grau III.\n')
-            print('\033[33m----- Agora iremos calcular suas calorias -----\033[m\n')
-            idade = int(input('Digite sua idade:'))
-            Sexo = input('Digite seu sexo (F/M):').upper()
-            if Sexo not in 'F' and Sexo not in 'M':
-                print("\033[31mSua resposta precisa ser F ou M\033[m")
-            elif idade <= 3 and Sexo == 'F':
-                Caloria1 = (58.310 * peso) - 31.0
-                print('Você deve consumir cerca de', Caloria1, 'calorias por dia para alcançar o peso ideal.\n')
-            elif idade <= 3 and Sexo == 'M':
-                Caloria7 = (59.510 * peso) - 30.5
-                print("Você deve consumir cerca de", Caloria7, "calorias por dia para alcançar o peso ideal.\n")
-            elif idade <= 10 and Sexo == 'F':
-                Caloria2 = (20.315 * peso) + 486
-                print('Você deve consumir cerca de', Caloria2, 'calorias por dia para alcançar o peso ideal.\n')
-            elif idade <= 10 and Sexo == 'M':
-                Caloria8 = (22.705 * peso) + 504.5
-                print("Você deve consumir cerca de", Caloria8, "calorias por dia para alcançar o peso ideal.\n")
-            elif idade <= 18 and Sexo == 'F':
-                Caloria3 = (13.385 * peso) + 692.5
-                print('Você deve consumir cerca de', Caloria3, 'calorias por dia para alcançar o peso ideal.\n')
-            elif idade <= 18 and Sexo == 'M':
-                Caloria9 = (17.686 * peso) + 658
-                print('Você deve consumir cerca de', Caloria9, 'calorias por dia para alcançar o peso ideal.\n')
-            elif idade <= 30 and Sexo == 'F':
-                Caloria4 = (14.820 * peso) + 486.5
-                print('Você deve consumir cerca de', Caloria4, 'calorias por dia para alcançar o peso ideal.\n')
-            elif idade <= 30 and Sexo == 'M':
-                Caloria10 = (15.055 * peso) + 692
-                print('Você deve consumir cerca de', Caloria10, 'calorias por dia para alcançar o peso ideal.\n')
-            elif idade <= 60 and Sexo == 'F':
-                Caloria5 = (8.125 * peso) + 845.5
-                print('Você deve consumir cerca de', Caloria5, 'calorias por dia para alcançar o peso ideal.\n')
-            elif idade <= 60 and Sexo == 'M':
-                Caloria11 = (11.470 * peso) + 873
-                print('Você consumir cerca de', Caloria11, ' calorias por dia para alcançar o peso ideal.\n')
-            elif idade >= 61 and Sexo == 'F':
-                Caloria6 = (9.080 * peso) + 658.5
-                print('Você deve consumir cerca de', Caloria6, ' calorias por dia para alcançar o peso ideal.\n')
-            elif idade >= 61 and Sexo == 'M':
-                Caloria12 = (11.710 * peso) + 587
-                print('Você deve consumir cerca de', 'Caloria12, calorias por dia para alcançar o peso ideal.\n')
+                num = float(digitacao)
+            if num <= 0:
+                print(erro)
+            else:
+                digitouDireito = True
         except ValueError:
-            print('\033[31mApenas Numeros, Porfavor!\033[m')
-        DigitouDireito = False
-        while not DigitouDireito:
-            dcn = str(input("Deseja seu IMC e caloria novamente? (S/N)? "))
-            if dcn not in 'Ss' and dcn not in 'Nn':
-                print("\033[31mSua resposta deve ser ou Sim ou Não! Tente novamente...\033[m\n")
+            print(erro)
+    return num
+
+#Função de cálculo de IMC que retorna o IMC como valor
+def calcularIMC(peso, altura):
+    imc = (peso / (altura * altura))
+    return imc
+
+#Função que recebe o IMC, classifica conforme o valor e printa na tela
+def classificarIMC(imc):
+    if imc < 16:
+        print(f"Com o IMC de {imc:.2f}kg/m2 você está muito abaixo do peso e sua classificação é Magreza Grau III.\n")
+    elif imc < 16.9:
+        print(f"Com o IMC de {imc:.2f}kg/m2 você está muito abaixo do peso e sua classificação é Magreza Grau II.\n")
+    elif imc <= 18.4:
+        print(f"Com o IMC de {imc:.2f}kg/m2 você está abaixo do peso e sua classificação é Magreza Grau I.\n")
+    elif imc <= 24.9:
+        print(f"Com o IMC de {imc:.2f}kg/m2 você está no peso ideal.\n")
+    elif imc <= 29.9:
+        print(f"Com o IMC de {imc:.2f}kg/m2 você está um pouco acima do peso e sua classificação é Pré-obesidade.\n")
+    elif imc <= 34.9:
+        print(f"Com o IMC de {imc:.2f}kg/m2 você está acima do peso e sua classificação é Obesidade Grau I.\n")
+    elif imc <= 39.9:
+        print(f"Com o IMC de {imc:.2f}kg/m2 você está acima do peso e sua classificação é Obesidade Grau II.\n")
+    else:
+        print(f"Com o IMC de {imc:.2f}kg/m2 você está muito acima do peso e sua classificação é Obesidade Grau III.\n")
+
+#Função que retorna o sexo (M ou F)
+def pegarSexo(solicitacao, erro, adeus):
+    digitouDireito = False
+    while not digitouDireito:
+        try:
+            sexo = input(solicitacao + " (QUIT para sair): ").upper()
+            if sexo == "QUIT":
+                print(adeus)
+                exit()
+            if sexo not in "F" and sexo not in "M":
+                print(erro)
             else:
-                DigitouDireito = True
-            if dcn in 'Nn':
-                QuerCalcular = False
-print("\n\033[32mObrigado por usar este programa!\033[m")
+                digitouDireito = True
+        except ValueError:
+            print(erro)
+    return sexo
+
+#Função de cálculo de calorias, checa qual a idade e peso para colocar na variável calorias, depois printa na tela
+def calcularCalorias(idade, sexo, peso):
+    calorias = 0
+    if idade <= 3 and sexo == "F":
+        calorias = (58.310 * peso) - 31.0
+    elif idade <= 3 and sexo == "M":
+        calorias = (59.510 * peso) - 30.5
+    elif idade <= 10 and sexo == "F":
+        calorias = (20.315 * peso) + 486
+    elif idade <= 10 and sexo == "M":
+        calorias = (22.705 * peso) + 504.5
+    elif idade <= 18 and sexo == "F":
+        calorias = (13.385 * peso) + 692.5
+    elif idade <= 18 and sexo == "M":
+        calorias = (17.686 * peso) + 658
+    elif idade <= 30 and sexo == "F":
+        calorias = (14.820 * peso) + 486.5
+    elif idade <= 30 and sexo == "M":
+        calorias = (15.055 * peso) + 692
+    elif idade <= 60 and sexo == "F":
+        calorias = (8.125 * peso) + 845.5
+    elif idade <= 60 and sexo == "M":
+        calorias = (11.470 * peso) + 873
+    elif idade >= 61 and sexo == "F":
+        calorias = (9.080 * peso) + 658.5
+    elif idade >= 61 and sexo == "M":
+        calorias = (11.710 * peso) + 587
+    print("Você deve consumir cerca de", calorias, "calorias por dia para alcançar o peso ideal.\n")
+
+print("\033[33m----- Programa para calculo de IMC -----\033[m\n")
+
+peso = pegarValor("Digite o seu peso", "Erro\nApenas números reais acima de 0 são aceitos\n", "Fim do programa\nObrigado por usar", False)
+altura = pegarValor("Digite a sua altura", "Erro\nApenas números reais acima de 0 são aceitos\n", "Fim do programa\nObrigado por usar", False)
+imc = calcularIMC(peso, altura)
+
+print(f"Pesando {peso}kg e medindo {altura}m o seu IMC é de {imc:.2f}kg/m2")
+
+classificarIMC(imc)
+
+print("\033[33m----- Agora iremos calcular suas calorias -----\033[m\n")
+
+idade = pegarValor("Digite a sua idade", "Erro\nApenas números naturais acima de 0 são aceitos\n", "Fim do programa\nObrigado por usar")
+sexo = pegarSexo("Digite o seu sexo (M/F)", "Erro\nApenas M (masculino) ou F (feminino) são aceitos\n", "Fim do programa\nObrigado por usar")
+
+calcularCalorias(idade, sexo, peso)
