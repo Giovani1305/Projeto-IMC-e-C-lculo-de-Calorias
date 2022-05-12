@@ -1,0 +1,95 @@
+Programa IMC 
+
+
+print('programa para calculo de IMC')
+
+QuerCalcular = True
+while QuerCalcular:
+    DigitouDireito = False
+    while not DigitouDireito:
+
+        try:
+            peso = float(input('Digite seu peso!\n'))
+            altura = float(input('Digite sua altura!\n'))
+          
+            Resposta = (peso/(altura*altura))
+            print('O seu IMC é', Resposta,)
+            if Resposta <16:
+                print('Magreza Grau III\n')
+            elif Resposta  <16.9:
+                print('Magreza Grau II\n')
+            elif Resposta  <=18.4:
+                print('Magreza Grau I\n')
+            elif Resposta  <=24.9:
+                print('Peso Ideal\n')
+            elif Resposta <= 29.9:
+                print('Pré-Obesidade\n')
+            elif Resposta <= 34.9:
+                print('Obesidade Grau I\n')
+            elif Resposta <=39.9:
+                print('Obesidade Grau II\n')
+            else:
+                Resposta>40
+                print('Obesidade Grau III\n')
+                
+            print('Agora iremos calcular suas calorias\n') 
+            
+            Peso2 = float(input('Digite seu peso!\n'))
+            Altura2 = float(input('Digite sua altura!\n'))
+            idade = int(input('Digite sua idade!\n'))
+            Sexo = input('Digite seu sexo, (F/M)!\n')
+            if Sexo!="F" and Sexo!='M':
+                print("Sua resposta precisa ser F ou M")
+            elif idade <= 3 and Sexo =='F':
+                Caloria1 = (58.310*Peso2)-31.0
+                print('Você deve consumir cerca de', Caloria1,'calorias por dia\n')
+            elif idade<= 3 and Sexo =='M':
+                Caloria7 = (59.510*Peso2)-30.5
+                print("Você deve consumir cerca de", Caloria7,"calorias por dia\n")
+            elif idade <= 10 and Sexo=='F':
+                Caloria2 = (20.315*Peso2)+486
+                print('Você deve consumir cerca de', Caloria2,'calorias por dia\n')
+            elif idade <=10 and Sexo=='M':
+                Caloria8 = (22.705*Peso2)+ 504.5
+                print("Você deve consumir cerca de", Caloria8, "calorias por dia\n")
+            elif idade <= 18 and Sexo=='F':
+                Caloria3 = (13.385*Peso2)+692.5
+                print('Você deve consumir cerca de', Caloria3,'calorias por dia\n')
+            elif idade<= 18 and Sexo=='M':
+                Caloria9 = (17.686*Peso2) + 658
+                print('Você deve consumir cerca de', Caloria9, 'calorias por dia\n')
+            elif idade <= 30 and Sexo=='F':
+                Caloria4 = (14.820*Peso2) + 486.5
+                print('Você deve consumir cerca de', Caloria4, 'calorias por dia\n')
+            elif idade<= 30 and Sexo=='M':
+                Caloria10 =(15.055*Peso2) + 692
+                print('Você deve consumir cerca de', Caloria10, 'calorias por dia\n')
+            elif idade <=60 and Sexo=='F':
+                Caloria5 = (8.125*Peso2) + 845.5
+                print('Você deve consumir cerca de', Caloria5, 'calorias por dia\n')
+            elif idade<= 60 and Sexo=='M':
+                Caloria11 = (11.470*Peso2) + 873
+                print=('Você consumir cerca de', Caloria11, ' calorias por dia\n')
+            elif idade >=61 and Sexo=='F':
+                Caloria6 = (9.080*Peso2) + 658.5
+                print('Você deve consumir cerca de', Caloria6, ' calorias por dia\n')
+            else:
+                idade>=61 and Sexo=='M'
+                Caloria12 = (11.710*Peso2) + 587
+                print('Você deve consumir cerca de', 'Caloria12, calorias por dia\n')
+                
+        except ValueError:
+            print('Apenas Numeros, Porfavor!')
+            
+            
+        DigitouDireito = False
+        while not DigitouDireito:
+            resposta = input ("Deseja calcular novamente? (Sim/Não)? ")
+        
+            if resposta!="Sim" and resposta!="Não" and resposta!="Nao" and resposta!="nao" and resposta!="sim":
+                print ("Sua resposta deve ser ou Sim ou Não! Tente novamente...\n")
+            else:
+                DigitouDireito = True
+            
+        if resposta=="Não" or resposta=="Nao" or resposta=="nao": QuerCalcular=False
+print ("Obrigado por usar este programa! ")
